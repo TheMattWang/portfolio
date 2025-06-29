@@ -1,0 +1,135 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+
+title: Backend Blueprint — Conversational "MattBot"
+kind: reference        # design & API docs (not hard rules)
+scope: global          # visible to both Chat + Cmd+K (lightweight)
+weight: 85             # loaded after design-system (higher number → lower priority)
+------------------------------------------------------------------------------------
+
+# 🛠️ Backend Blueprint · Static‑site + Serverless Chatbot
+
+> Goal: power a conversational assistant (“**MattBot**”) that answers visitors’ questions using **MCP** retrieval across multiple content sources, while the portfolio itself remains a static GH Pages deployment.
+
+## 1 · High‑level Architecture
+
+```
++------------+   HTTPS   +---------------------------+
+|  Browser   | ───────▶ |  /api/chat (Edge Fn)      |
+|  (GH Pages)|          |  - Cloudflare Workers     |
++------------+          |  - Netlify Edge Functions |
+                         +---------┬----------------+
+                                   │
+                                   ▼
+                             Retrieval Layer (MCP)
+                                   │
+                                   ▼
+                          OpenAI / Anthropic LLM
+```
+
+1. **Static front‑end** served via **GitHub Pages** (no servers).
+2. Interactive chat widget posts to **`/api/chat`** — proxied to a serverless function on Cloudflare / Netlify (choose at deploy time).
+3. The function invokes **MCP** (multi‑context provider) to fetch snippets from:
+
+   * MDX blog posts (`/content/**/*.mdx`)
+   * Project READMEs (GitHub REST)
+   * Design‑system & docs (from this repo)
+4. Retrieved chunks + user question → fed to LLM via **RAG** prompt.
+5. Stream response back to the browser (SSE).
+
+---
+
+## 2 · MCP Retrieval Spec
+
+| Source                       | Loader                                  | Filters            | Notes                        |
+| ---------------------------- | --------------------------------------- | ------------------ | ---------------------------- |
+| `content/**` MDX             | `mcp.loaders.local("content/**/*.mdx")` | strip front‑matter | Project & life write‑ups     |
+| GitHub repos                 | `mcp.loaders.github(repo, branch)`      | `.md`, `README*`   | Use GitHub API token env var |
+| Design docs (`.cursor/*.md`) | `mcp.loaders.local(".cursor/*.md")`     | exclude rules.md   | Provides site guidelines     |
+| Public talks (optional)      | `mcp.loaders.url(RSS)`                  |                    | Transcript indexing later    |
+
+```ts
+const mcp = new MCP({
+  embeddings: new OpenAIEmbeddings({ model: 'text-embedding-3-small' }),
+  chunkSize: 800,
+  chunkOverlap: 80,
+});
+```
+
+---
+
+## 3 · API Endpoint Contract
+
+`POST /api/chat`
+
+```jsonc
+{
+  "sessionId": "uuid-v4",
+  "message": "string (user prompt)",
+  "history": [
+    { "role": "user"|"assistant", "content": "..." }
+  ]
+}
+```
+
+**Response:** `200` Stream (text/event‑stream)
+
+```text
+event: token
+data: { "content": "Hello, I'm MattBot..." }
+```
+
+### CORS
+
+Allow `https://<username>.github.io` (production) & `http://localhost:3000` (dev).
+
+---
+
+## 4 · Environment Variables (Edge Function)
+
+| Key              | Purpose                           |
+| ---------------- | --------------------------------- |
+| `OPENAI_API_KEY` | LLM + embeddings                  |
+| `GITHUB_TOKEN`   | Read private repos (optional)     |
+| `MCP_CACHE_URL`  | Redis / KV URL for cached vectors |
+
+> **Security:** **Never** expose keys in the Next.js client bundle. They live in Cloudflare `wrangler.toml` or Netlify UI.
+
+---
+
+## 5 · Deployment Steps
+
+1. **Build** static site → `dist/` pushed to `gh-pages` branch.
+   `pnpm run build && pnpm run export`
+2. **Deploy** serverless function via CI:
+
+   * Cloudflare Workers: `wrangler deploy`
+   * Netlify: `netlify deploy --prod`
+3. Save function URL to `.env.production` → site widget points to it.
+
+---
+
+## 6 · Roadmap
+
+* [ ] 🟢 MVP: context = MDX blog & design docs, OpenAI GPT‑4o.
+* [ ] 🟡 Add live GitHub README retrieval.
+* [ ] 🟡 Vector cache (Cloudflare D1 / Upstash Redis).
+* [ ] 🟠 Auth (JWT) for private Q\&A.
+* [ ] 🟣 Voice‑to‑text + audio replies (optional).
+* [ ] 🔵 Fine‑tune persona on personal writings.
+
+---
+
+## 7 · AI Guard‑rails
+
+* **No** direct code execution; embed links to source when suggesting code.
+* Respond in first‑person “I” as Matt, but clarify when unsure.
+* If question outside personal scope, politely decline.
+
+---
+
+*Last updated: 2025‑06‑29*

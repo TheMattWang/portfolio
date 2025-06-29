@@ -1,0 +1,115 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+
+title: Design System — Matt Wang Portfolio
+kind: reference       # reference = context docs, not hard rules
+scope: global         # available to all prompts
+weight: 80            # loaded after rules.md
+---------------------------------------------
+
+# 🎨 Design System · Warm Approachable Palette
+
+> **Single source of truth** for colors, typography, spacing, and component heuristics. Keep this file in sync with `tailwind.config.ts`.
+
+## 1 · Color Tokens
+
+| Token             | Hex       | Role                                   |
+| ----------------- | --------- | -------------------------------------- |
+| **stone-900**     | `#292524` | Dark text / dark surfaces              |
+| **stone-600**     | `#78716C` | Body text / dividers                   |
+| **stone-100**     | `#F5F5F4` | Light backgrounds / cards              |
+| **coral-500**     | `#F97316` | **Primary accent** — buttons, links    |
+| **sunflower-400** | `#FACC15` | Secondary accent — hovers, focus rings |
+
+```scss
+:root {
+  --stone-900: #292524;
+  --stone-600: #78716C;
+  --stone-100: #F5F5F4;
+  --coral-500: #F97316;
+  --sunflower-400: #FACC15;
+}
+```
+
+### Alias map
+
+```ts
+export const colors = {
+  textPrimary: 'var(--stone-900)',
+  textBody: 'var(--stone-600)',
+  bgLight: 'var(--stone-100)',
+  accent: 'var(--coral-500)',
+  accentHover: 'var(--sunflower-400)',
+}
+```
+
+*WCAG note:* stone‑600 on stone‑100 passes AA at 16 px.
+
+## 2 · Typography
+
+| Style   | Font             | Weight | Tailwind                    |
+| ------- | ---------------- | ------ | --------------------------- |
+| H1      | Playfair Display | 700    | `text-4xl md:text-5xl`      |
+| H2      | Playfair Display | 700    | `text-3xl md:text-4xl`      |
+| H3      | Playfair Display | 700    | `text-2xl`                  |
+| Body    | Inter            | 400    | `text-base leading-relaxed` |
+| Caption | Inter            | 400    | `text-sm opacity-80`        |
+
+Fallbacks:
+
+```css
+font-family: 'Playfair Display', Georgia, serif;
+font-family: 'Inter', system-ui, sans-serif;
+```
+
+## 3 · Spacing & Layout
+
+* Base unit = **4 px** (`0.25rem` Tailwind).
+* Containers: `max-w-4xl mx-auto px-4`.
+* Default grid gap: `gap-6`.
+* Breakpoints: `sm 640px`, `md 768px`, `lg 1024px`, `xl 1280px`, `2xl 1536px`.
+
+## 4 · Component Guidelines (shadcn/ui)
+
+| Component          | Variant                                                                                              | Notes                                           |
+| ------------------ | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| **Button**         | `default` (coral‑500 bg → sunflower‑400 hover)<br>`secondary` (border sunflower‑400, transparent bg) | Use `size="lg"` for CTAs                        |
+| **Card**           | shadow‑sm, rounded‑2xl, border stone‑100                                                             | Wrap images `overflow-hidden`                   |
+| **Navbar**         | Sticky; backdrop‑blur on scroll                                                                      | Links `text-stone-600` → hover `text-coral-500` |
+| **SectionHeading** | Center MD, left LG                                                                                   | Accent underline via `after:bg-coral-500`       |
+| **Form input**     | stone‑100 bg, stone‑900 text                                                                         | Focus ring coral‑500                            |
+
+### Animation baseline
+
+```tsx
+<motion.div
+  initial={{ opacity: 0, y: 24 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.3 }}
+/>
+```
+
+## 5 · Iconography & Imagery
+
+* Lucide icons `stroke-1.5`; inherit `currentColor`.
+* Images via `next/image`, rounded‑2xl, drop‑shadow‑lg.
+
+## 6 · Accessibility Checklist
+
+1. Text contrast AA; interactive icons AAA.
+2. `aria-label` for icon‑only buttons.
+3. Trap focus in modals.
+4. Respect `prefers-reduced-motion`.
+
+## 7 · Update Process
+
+1. Edit this file.
+2. Sync `tailwind.config.ts`.
+3. Replace hard‑coded hexes.
+4. `pnpm format && pnpm test`.
+
+*Last updated: 2025‑06‑29*
