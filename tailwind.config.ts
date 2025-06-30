@@ -18,6 +18,10 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['var(--font-inter)'],
+        serif: ['var(--font-playfair)'],
+      },
       colors: {
         coral: {
           50: "#fff1f1",
@@ -31,6 +35,19 @@ const config = {
           800: "#a51515",
           900: "#881b1b",
           950: "#4b0808",
+        },
+        sunflower: {
+          50: "#fff9eb",
+          100: "#ffefc7",
+          200: "#ffdf89",
+          300: "#ffcb4c",
+          400: "#ffb81f",
+          500: "#f99707",
+          600: "#dd6c02",
+          700: "#b74b06",
+          800: "#943a0c",
+          900: "#7a310d",
+          950: "#461604",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
