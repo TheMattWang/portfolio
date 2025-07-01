@@ -5,6 +5,8 @@ import type { Experience } from "@/data/experience";
 import { experiences } from "@/data/experience"
 import Link from "next/link"
 import { useEffect, useRef } from "react"
+import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 export function ExperienceTimeline() {
   const timelineRef = useRef<HTMLDivElement>(null)
@@ -47,12 +49,12 @@ export function ExperienceTimeline() {
           >
             {/* Timeline dot */}
             <div className="absolute left-1/2 transform -translate-x-1/2">
-              <div className="w-4 h-4 bg-white border-2 border-maroon-500 rounded-full" />
+              <div className="w-4 h-4 bg-white border-2 border-primary rounded-full" />
             </div>
 
             {/* Content */}
             <div className={`flex ${index % 2 === 0 ? 'justify-start' : 'justify-end'} items-start w-1/2 ${index % 2 === 0 ? 'ml-auto pl-8' : 'pr-8'}`}>
-              <div className="bg-white p-4 rounded-lg shadow-sm border border-stone-200 hover:border-maroon-500/20 transition-all duration-300">
+              <div className="bg-white p-4 rounded-lg shadow-sm border border-stone-200 hover:border-primary/20 transition-all duration-300">
                 {/* Date */}
                 <div className="text-sm text-stone-500 mb-1">
                   {experience.date}
@@ -84,12 +86,11 @@ export function ExperienceTimeline() {
 
                 {/* Link */}
                 {experience.link && (
-                  <Link 
-                    href={experience.link}
-                    className="text-sm text-maroon-500 hover:text-maroon-600 mt-2 inline-block"
-                  >
-                    Learn more →
-                  </Link>
+                  <Button variant="link" asChild className="mt-2 h-auto p-0">
+                    <Link href={experience.link}>
+                      Learn more →
+                    </Link>
+                  </Button>
                 )}
               </div>
             </div>

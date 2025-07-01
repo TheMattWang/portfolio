@@ -2,6 +2,7 @@ import { ExperienceTimeline } from "@/components/ExperienceTimeline"
 import { SectionHeading } from "@/components/SectionHeading"
 import { FileDown } from "lucide-react"
 import Link from "next/link"
+import { Button } from "@/components/ui/button"
 
 export default function ExperiencesPage() {
   return (
@@ -11,14 +12,16 @@ export default function ExperiencesPage() {
           My journey through academia and industry
         </SectionHeading>
 
-        <Link 
-          href="/resume.pdf" 
-          className="flex items-center gap-2 px-4 py-2 bg-maroon-500 text-white rounded-lg hover:bg-maroon-600 transition-colors"
-          download
-        >
-          <FileDown className="w-5 h-5" />
-          <span>Download Resume</span>
-        </Link>
+        <Button asChild>
+          <Link 
+            href="/resume.pdf" 
+            className="flex items-center gap-2"
+            download
+          >
+            <FileDown className="w-5 h-5" />
+            <span>Download Resume</span>
+          </Link>
+        </Button>
       </div>
       
       <div className="mt-16 max-w-5xl mx-auto">

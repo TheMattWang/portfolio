@@ -16,7 +16,7 @@ export default function Home() {
         </div>
 
         <h1 className="font-display text-[clamp(2.2rem,7vw,3.5rem)] font-bold text-stone-900 mb-4">
-          Hi, I'm <span className="text-maroon-500">Matthew Wang</span>
+          Hi, I'm <span className="text-primary">Matthew Wang</span>
         </h1>
         <p className="text-lg md:text-xl mb-8 max-w-prose text-stone-600">
           Runner · Reader · Writer · Explorer
@@ -24,13 +24,13 @@ export default function Home() {
 
         {/* Contact strip */}
         <div className="flex gap-6">
-          <a href="mailto:mat.wang25@gmail.com" aria-label="Email" className="text-stone-600 hover:text-maroon-500 transition-colors">
+          <a href="mailto:mat.wang25@gmail.com" aria-label="Email" className="text-stone-600 hover:text-primary transition-colors">
             <Mail className="h-6 w-6" />
           </a>
-          <a href="https://github.com/TheMattWang" aria-label="GitHub" className="text-stone-600 hover:text-maroon-500 transition-colors">
+          <a href="https://github.com/TheMattWang" aria-label="GitHub" className="text-stone-600 hover:text-primary transition-colors">
             <Github className="h-6 w-6" />
           </a>
-          <a href="https://linkedin.com/in/maw2025" aria-label="LinkedIn" className="text-stone-600 hover:text-maroon-500 transition-colors">
+          <a href="https://linkedin.com/in/maw2025" aria-label="LinkedIn" className="text-stone-600 hover:text-primary transition-colors">
             <Linkedin className="h-6 w-6" />
           </a>
         </div>

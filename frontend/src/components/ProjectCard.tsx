@@ -1,57 +1,105 @@
+'use client'
+
 import { Project } from "@/data/projects"
-import { Github, Globe, FileText } from "lucide-react"
+import { Github, Globe, Clock } from "lucide-react"
 import Link from "next/link"
+import { allBlogs } from 'contentlayer/generated'
 
 export function ProjectCard({ title, description, tags, github, demo, blogPost }: Project) {
-  return (
-    <div className="rounded-lg border border-stone-200 p-6">
-      <h3 className="text-xl font-medium text-stone-900 mb-2">{title}</h3>
-      <p className="text-stone-600 mb-4">{description}</p>
-      
-      <div className="flex flex-wrap gap-2 mb-4">
-        {tags.map((tag) => (
-          <span
-            key={tag}
-            className="inline-block px-3 py-1 text-sm text-maroon-500 bg-maroon-500/10 rounded-full"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
+  const handleExternalLinkClick = (e: React.MouseEvent) => {
+    e.stopPropagation()
+  }
 
-      <div className="flex gap-4">
-        {blogPost && (
-          <Link
-            href={blogPost}
-            className="flex items-center gap-2 text-stone-600 hover:text-stone-900 transition-colors"
-          >
-            <FileText className="h-5 w-5" />
-            <span>Read More</span>
-          </Link>
-        )}
-        {github && (
-          <Link
-            href={github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-stone-600 hover:text-stone-900 transition-colors"
-          >
-            <Github className="h-5 w-5" />
-            <span>GitHub</span>
-          </Link>
-        )}
-        {demo && (
-          <Link
-            href={demo}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-stone-600 hover:text-stone-900 transition-colors"
-          >
-            <Globe className="h-5 w-5" />
-            <span>Demo</span>
-          </Link>
-        )}
-      </div>
+  // Get the reading time from the associated blog post
+  const getBlogReadingTime = () => {
+    if (!blogPost) return null
+    const slug = blogPost.split('/').pop()
+    const post = allBlogs.find(post => post.slug === slug)
+    return post?.readingTime
+  }
+
+  const readingTime = getBlogReadingTime()
+
+  return (
+    <div className={`rounded-lg border border-stone-200 p-6 ${blogPost ? 'hover:border-primary transition-colors group' : ''}`}>
+      {blogPost ? (
+        <Link href={blogPost} className="block cursor-pointer">
+          <div>
+            <div className="flex justify-between items-start mb-2">
+              <h3 className="text-xl font-medium text-stone-900 group-hover:text-primary transition-colors">{title}</h3>
+              {readingTime && (
+                <span className="flex items-center gap-1 text-sm text-stone-500">
+                  <Clock className="h-4 w-4" />
+                  {readingTime} min read
+                </span>
+              )}
+            </div>
+            <p className="text-stone-600 mb-4">{description}</p>
+            
+            <div className="flex flex-wrap gap-2 mb-4">
+              {tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="inline-block px-3 py-1 text-sm text-primary bg-primary/10 rounded-full"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </Link>
+      ) : (
+        <div>
+          <div className="flex justify-between items-start mb-2">
+            <h3 className="text-xl font-medium text-stone-900">{title}</h3>
+            {readingTime && (
+              <span className="flex items-center gap-1 text-sm text-stone-500">
+                <Clock className="h-4 w-4" />
+                {readingTime} min read
+              </span>
+            )}
+          </div>
+          <p className="text-stone-600 mb-4">{description}</p>
+          
+          <div className="flex flex-wrap gap-2 mb-4">
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className="inline-block px-3 py-1 text-sm text-primary bg-primary/10 rounded-full"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {(github || demo) && (
+        <div className="flex gap-4" onClick={handleExternalLinkClick}>
+          {github && (
+            <Link
+              href={github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-stone-600 hover:text-stone-900 transition-colors"
+            >
+              <Github className="h-5 w-5" />
+              <span>GitHub</span>
+            </Link>
+          )}
+          {demo && (
+            <Link
+              href={demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-stone-600 hover:text-stone-900 transition-colors"
+            >
+              <Globe className="h-5 w-5" />
+              <span>Demo</span>
+            </Link>
+          )}
+        </div>
+      )}
     </div>
   )
 } 

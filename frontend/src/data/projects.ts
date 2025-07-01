@@ -1,3 +1,5 @@
+import { calculateReadTime } from "@/lib/utils";
+
 export interface Project {
   title: string;
   description: string;

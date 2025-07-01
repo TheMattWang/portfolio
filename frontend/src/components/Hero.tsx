@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
+import { Button } from "@/components/ui/button"
 
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null)
@@ -45,12 +46,11 @@ export function Hero() {
           quality.
         </p>
 
-        <Link
-          href="/projects"
-          className="inline-block bg-maroon-500 text-white px-6 py-3 rounded-md hover:bg-maroon-600 transition-colors"
-        >
-          View my projects
-        </Link>
+        <Button asChild size="lg">
+          <Link href="/projects">
+            View my projects
+          </Link>
+        </Button>
       </div>
     </section>
   )
