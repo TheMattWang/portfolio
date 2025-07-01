@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@next/font": "^14.2.15",
     "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-navigation-menu": "^1.2.13",
     "@radix-ui/react-slot": "^1.2.3",
@@ -17,8 +16,8 @@
     "clsx": "^2.1.1",
     "contentlayer": "^0.3.4",
     "date-fns": "^4.1.0",
-    "framer-motion": "^12.20.1",
     "lucide-react": "^0.525.0",
+    "markdown-wasm": "^1.2.0",
     "next": "13.5.6",
     "next-contentlayer": "^0.3.4",
     "react": "^18.2.0",
@@ -29,11 +28,12 @@
     "@types/node": "^20.19.2",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
-    "autoprefixer": "^10.0.1",
+    "autoprefixer": "^10.4.17",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
-    "postcss": "^8",
-    "tailwindcss": "^4.1.11",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
+    "tailwindcss-animate": "^1.0.7",
     "typescript": "^5"
   }
 }

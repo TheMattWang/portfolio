@@ -1,6 +1,4 @@
 import { Inter, Playfair_Display } from "next/font/google";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -18,12 +16,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full">
-      <body className={`${inter.variable} ${playfair.variable} font-sans flex min-h-full flex-col bg-background text-foreground antialiased`}>
-        <Navbar />
-        <main className="flex-1 pt-16">
-          {children}
-        </main>
-        <Footer />
+      <body className={`${inter.variable} ${playfair.variable} font-sans min-h-screen bg-stone-50`}>
+        {children}
       </body>
     </html>
   );
