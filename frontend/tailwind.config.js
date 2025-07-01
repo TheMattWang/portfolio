@@ -6,7 +6,14 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        maroon: {
+          500: '#500000',  // Base maroon
+          600: '#400000',  // Darker maroon for hover states
+        },
+      },
+    },
   },
   plugins: [],
 } 
