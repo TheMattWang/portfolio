@@ -1,8 +1,8 @@
 import { Project } from "@/data/projects"
-import { Github, Globe } from "lucide-react"
+import { Github, Globe, FileText } from "lucide-react"
 import Link from "next/link"
 
-export function ProjectCard({ title, description, tags, github, demo }: Project) {
+export function ProjectCard({ title, description, tags, github, demo, blogPost }: Project) {
   return (
     <div className="rounded-lg border border-stone-200 p-6">
       <h3 className="text-xl font-medium text-stone-900 mb-2">{title}</h3>
@@ -20,6 +20,15 @@ export function ProjectCard({ title, description, tags, github, demo }: Project)
       </div>
 
       <div className="flex gap-4">
+        {blogPost && (
+          <Link
+            href={blogPost}
+            className="flex items-center gap-2 text-stone-600 hover:text-stone-900 transition-colors"
+          >
+            <FileText className="h-5 w-5" />
+            <span>Read More</span>
+          </Link>
+        )}
         {github && (
           <Link
             href={github}
