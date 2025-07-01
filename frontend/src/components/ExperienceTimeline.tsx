@@ -1,150 +1,28 @@
 import { format, parseISO } from "date-fns";
 import type { Experience } from "@/data/experience";
+import { experiences } from "@/data/experience"
 
-interface ExperienceTimelineProps {
-  experiences: Experience[];
-}
-
-export function ExperienceTimeline({ experiences }: ExperienceTimelineProps) {
+export function ExperienceTimeline() {
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6">
-      <div className="relative">
-        {/* Vertical line for md and above */}
-        <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-border" />
-
-        <div className="space-y-12">
-          {experiences.map((experience, index) => (
-            <div key={index} className="relative">
-              {/* Mobile layout (stacked) */}
-              <div className="md:hidden space-y-4">
-                <div className="flex items-center space-x-3">
-                  <div className="flex-shrink-0 h-3 w-3 rounded-full bg-coral-500" />
-                  <h3 className="text-lg font-medium text-foreground">
-                    {experience.title}
-                  </h3>
-                </div>
-                <div className="space-y-2">
-                  <div className="text-sm font-medium text-muted-foreground">
-                    {experience.company} • {experience.location}
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    {format(parseISO(experience.startDate), "MMM yyyy")} -{" "}
-                    {experience.endDate === "Present"
-                      ? "Present"
-                      : format(parseISO(experience.endDate), "MMM yyyy")}
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    {experience.type}
-                  </div>
-                  <ul className="mt-4 space-y-2">
-                    {experience.description.map((item, i) => (
-                      <li key={i} className="text-sm text-foreground">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {experience.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="inline-flex items-center rounded-full bg-coral-500/10 px-3 py-1 text-xs font-medium text-coral-500"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Desktop layout (two columns) */}
-              <div className="hidden md:grid md:grid-cols-2 md:gap-8">
-                {/* Left column (even indexes) */}
-                <div
-                  className={`text-right ${
-                    index % 2 === 0 ? "md:block" : "md:hidden"
-                  }`}
-                >
-                  <h3 className="text-lg font-medium text-foreground">
-                    {experience.title}
-                  </h3>
-                  <div className="mt-2 text-sm font-medium text-muted-foreground">
-                    {experience.company} • {experience.location}
-                  </div>
-                  <div className="mt-1 text-sm text-muted-foreground">
-                    {format(parseISO(experience.startDate), "MMM yyyy")} -{" "}
-                    {experience.endDate === "Present"
-                      ? "Present"
-                      : format(parseISO(experience.endDate), "MMM yyyy")}
-                  </div>
-                  <div className="mt-1 text-sm text-muted-foreground">
-                    {experience.type}
-                  </div>
-                  <ul className="mt-4 space-y-2">
-                    {experience.description.map((item, i) => (
-                      <li key={i} className="text-sm text-foreground">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="flex flex-wrap gap-2 mt-4 justify-end">
-                    {experience.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="inline-flex items-center rounded-full bg-coral-500/10 px-3 py-1 text-xs font-medium text-coral-500"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Center dot */}
-                <div className="absolute left-1/2 -translate-x-1/2 hidden md:flex md:items-center md:justify-center">
-                  <div className="h-3 w-3 rounded-full bg-coral-500" />
-                </div>
-
-                {/* Right column (odd indexes) */}
-                <div
-                  className={`${index % 2 === 1 ? "md:block" : "md:hidden"}`}
-                >
-                  <h3 className="text-lg font-medium text-foreground">
-                    {experience.title}
-                  </h3>
-                  <div className="mt-2 text-sm font-medium text-muted-foreground">
-                    {experience.company} • {experience.location}
-                  </div>
-                  <div className="mt-1 text-sm text-muted-foreground">
-                    {format(parseISO(experience.startDate), "MMM yyyy")} -{" "}
-                    {experience.endDate === "Present"
-                      ? "Present"
-                      : format(parseISO(experience.endDate), "MMM yyyy")}
-                  </div>
-                  <div className="mt-1 text-sm text-muted-foreground">
-                    {experience.type}
-                  </div>
-                  <ul className="mt-4 space-y-2">
-                    {experience.description.map((item, i) => (
-                      <li key={i} className="text-sm text-foreground">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {experience.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="inline-flex items-center rounded-full bg-coral-500/10 px-3 py-1 text-xs font-medium text-coral-500"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+    <div className="mt-12 space-y-8">
+      {experiences.map((experience, index) => (
+        <div key={index} className="relative pl-8 border-l border-stone-200">
+          <div className="absolute -left-2 top-2 h-4 w-4 rounded-full border-2 border-maroon-500 bg-white" />
+          <div className="mb-2">
+            <h3 className="text-lg font-medium text-stone-900">{experience.title}</h3>
+            <p className="text-stone-600">{experience.company}</p>
+            <p className="text-sm text-stone-500">{experience.date}</p>
+          </div>
+          <p className="text-stone-600">{experience.description}</p>
+          {experience.achievements && (
+            <ul className="mt-4 list-disc list-inside space-y-2">
+              {experience.achievements.map((achievement, i) => (
+                <li key={i} className="text-stone-600">{achievement}</li>
+              ))}
+            </ul>
+          )}
         </div>
-      </div>
+      ))}
     </div>
   );
 } 

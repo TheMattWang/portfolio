@@ -29,7 +29,7 @@ export function Navbar() {
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <Link href="/" className="text-xl font-medium text-stone-900">
-            Portfolio
+            Matthew Wang
           </Link>
 
           {/* Mobile menu button */}
@@ -44,17 +44,17 @@ export function Navbar() {
 
           {/* Desktop menu */}
           <div className="hidden sm:flex sm:gap-8">
-            <Link href="/work" className="text-stone-500 hover:text-stone-900 transition-colors">
-              Work
+            <Link href="/experiences" className="text-stone-500 hover:text-stone-900 transition-colors">
+              Experiences
             </Link>
-            <Link href="/about" className="text-stone-500 hover:text-stone-900 transition-colors">
-              About
+            <Link href="/papers" className="text-stone-500 hover:text-stone-900 transition-colors">
+              Papers
             </Link>
-            <Link href="/skills" className="text-stone-500 hover:text-stone-900 transition-colors">
-              Skills
+            <Link href="/projects" className="text-stone-500 hover:text-stone-900 transition-colors">
+              Projects
             </Link>
-            <Link href="/contact" className="text-stone-500 hover:text-stone-900 transition-colors">
-              Contact
+            <Link href="/blog" className="text-stone-500 hover:text-stone-900 transition-colors">
+              Blog
             </Link>
           </div>
         </div>
@@ -65,32 +65,32 @@ export function Navbar() {
         <div className="sm:hidden border-t border-stone-200">
           <div className="space-y-1 px-4 py-3">
             <Link
-              href="/work"
+              href="/experiences"
               className="block py-2 text-base text-stone-500 hover:text-stone-900"
               onClick={() => setIsOpen(false)}
             >
-              Work
+              Experiences
             </Link>
             <Link
-              href="/about"
+              href="/papers"
               className="block py-2 text-base text-stone-500 hover:text-stone-900"
               onClick={() => setIsOpen(false)}
             >
-              About
+              Papers
             </Link>
             <Link
-              href="/skills"
+              href="/projects"
               className="block py-2 text-base text-stone-500 hover:text-stone-900"
               onClick={() => setIsOpen(false)}
             >
-              Skills
+              Projects
             </Link>
             <Link
-              href="/contact"
+              href="/blog"
               className="block py-2 text-base text-stone-500 hover:text-stone-900"
               onClick={() => setIsOpen(false)}
             >
-              Contact
+              Blog
             </Link>
           </div>
         </div>

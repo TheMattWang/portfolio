@@ -5,30 +5,18 @@ export interface Project {
   tags: string[];
   github?: string;
   demo?: string;
-  featured: boolean;
 }
 
 export const projects: Project[] = [
   {
-    title: "AI-Powered Task Manager",
-    description: "A smart task management application that uses machine learning to prioritize and categorize tasks. Built with Next.js and OpenAI's GPT-3 API.",
-    tags: ["Next.js", "TypeScript", "OpenAI", "TailwindCSS", "Prisma"],
-    github: "https://github.com/username/ai-task-manager",
-    demo: "https://ai-task-manager.demo",
-    featured: true
+    title: "Portfolio Website",
+    description: "A modern portfolio website built with Next.js and Tailwind CSS.",
+    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    github: "https://github.com/TheMattWang/portfolio",
   },
   {
-    title: "Real-time Collaboration Platform",
-    description: "A collaborative workspace platform with real-time document editing and video conferencing capabilities.",
-    tags: ["React", "WebRTC", "Socket.io", "Express", "MongoDB"],
-    github: "https://github.com/username/collab-platform",
-    featured: true
-  },
-  {
-    title: "E-commerce Analytics Dashboard",
-    description: "A comprehensive analytics dashboard for e-commerce businesses with data visualization and reporting features.",
-    tags: ["Vue.js", "D3.js", "Node.js", "PostgreSQL", "Redis"],
-    demo: "https://ecommerce-analytics.demo",
-    featured: false
+    title: "Research Project",
+    description: "Upcoming research project in machine learning and AI.",
+    tags: ["Python", "TensorFlow", "Machine Learning"],
   }
 ]; 

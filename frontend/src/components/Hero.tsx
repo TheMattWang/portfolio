@@ -46,10 +46,10 @@ export function Hero() {
         </p>
 
         <Link
-          href="/work"
-          className="inline-block bg-orange-500 text-white px-6 py-3 rounded-md hover:bg-orange-600 transition-colors"
+          href="/projects"
+          className="inline-block bg-maroon-500 text-white px-6 py-3 rounded-md hover:bg-maroon-600 transition-colors"
         >
-          View my work
+          View my projects
         </Link>
       </div>
     </section>

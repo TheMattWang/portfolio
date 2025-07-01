@@ -1,57 +1,48 @@
-import { Github, ExternalLink } from "lucide-react";
-import type { Project } from "@/data/projects";
+import { Project } from "@/data/projects"
+import { Github, Globe } from "lucide-react"
+import Link from "next/link"
 
-interface ProjectCardProps {
-  project: Project;
-}
-
-export function ProjectCard({ project }: ProjectCardProps) {
+export function ProjectCard({ title, description, tags, github, demo }: Project) {
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-lg border border-border bg-card p-6 hover:border-coral-500/50 transition-colors">
-      <div className="flex-1">
-        <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold leading-8 tracking-tight text-card-foreground">
-            {project.title}
-          </h3>
-          <div className="flex gap-2">
-            {project.github && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-                aria-label="View source code"
-              >
-                <Github className="h-5 w-5" />
-              </a>
-            )}
-            {project.demo && (
-              <a
-                href={project.demo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-                aria-label="View live demo"
-              >
-                <ExternalLink className="h-5 w-5" />
-              </a>
-            )}
-          </div>
-        </div>
-        <p className="mt-4 text-sm text-muted-foreground line-clamp-3">
-          {project.description}
-        </p>
-      </div>
-      <div className="mt-6 flex flex-wrap gap-2">
-        {project.tags.map((tag) => (
+    <div className="rounded-lg border border-stone-200 p-6">
+      <h3 className="text-xl font-medium text-stone-900 mb-2">{title}</h3>
+      <p className="text-stone-600 mb-4">{description}</p>
+      
+      <div className="flex flex-wrap gap-2 mb-4">
+        {tags.map((tag) => (
           <span
             key={tag}
-            className="inline-flex items-center rounded-full bg-coral-500/10 px-3 py-1 text-xs font-medium text-coral-500"
+            className="inline-block px-3 py-1 text-sm text-maroon-500 bg-maroon-500/10 rounded-full"
           >
             {tag}
           </span>
         ))}
       </div>
+
+      <div className="flex gap-4">
+        {github && (
+          <Link
+            href={github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-stone-600 hover:text-stone-900 transition-colors"
+          >
+            <Github className="h-5 w-5" />
+            <span>GitHub</span>
+          </Link>
+        )}
+        {demo && (
+          <Link
+            href={demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-stone-600 hover:text-stone-900 transition-colors"
+          >
+            <Globe className="h-5 w-5" />
+            <span>Demo</span>
+          </Link>
+        )}
+      </div>
     </div>
-  );
+  )
 } 
