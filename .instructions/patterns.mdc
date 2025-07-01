@@ -1,0 +1,123 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+
+title: Patterns & Best Practices
+kind: reference
+scope: global
+weight: 90
+----------
+
+> A living guide of high‑leverage patterns to keep code, content, and AI prompts consistent and maintainable. Reference this file when designing new features or large refactors.
+
+---
+
+## 1 · File & Folder Structure
+
+| Pattern                                 | Why                                    | Example                                            |
+| --------------------------------------- | -------------------------------------- | -------------------------------------------------- |
+| **Feature directories**                 | Keep related UI, hooks, tests together | `components/Experience/*`                          |
+| **Flat `/data` layer**                  | Decouple content from pages            | `data/projects.ts` → import in routes              |
+| **One route = one folder** (App Router) | Clear mapping between URL & FS         | `app/blog/[slug]/page.tsx`                         |
+| **Index barrel files sparingly**        | Easier refactors; avoid circular deps  | `export * from './Button'` only for stable UI kits |
+
+---
+
+## 2 · React Component Patterns
+
+| Pattern                                        | Snippet   |
+| ---------------------------------------------- | --------- |
+| **Server component by default**                | \`\`\`tsx |
+| // app/projects/page.tsx                       |           |
+| export default async function Projects() { … } |           |
+
+````|
+| **Isolate client logic** | ```tsx
+"use client";
+import { useState } from 'react';
+``` |
+| **Compound component** for complex UI | `Dialog.Root → Dialog.Trigger → Dialog.Content` |
+| **Forward refs** when wrapping shadcn/Radix | `const ButtonLink = forwardRef<HTMLAnchorElement, Props>((p,r)=>…)` |
+
+---
+
+## 3 · Tailwind & Styling
+
+1. **Utility‑first**: compose classes; avoid new CSS unless required.  
+2. **CSS vars for colors** (defined in design-system).  
+3. **Apply responsive modifiers** consistently (`sm: md: lg:`).  
+4. **Dark mode**: prefer class strategy `.dark …`; check contrast.  
+5. **Animation guideline**: entrance ≤ 300 ms; respect `prefers-reduced-motion`.
+
+---
+
+## 4 · Data ↔ UI Flow
+
+| Use‑case | Pattern |
+|----------|---------|
+| Constant lists (tech tags, timeline) | Static `data/*.ts` exports |
+| User‑generated content | MDX + Contentlayer with strong schemas |
+| Remote fetch (public API) | Server component `fetch()` cached at build (`revalidate = 3600`) |
+| Form submission | Post to Render `/api/*` → handle JSON → return 204 |
+
+---
+
+## 5 · Error & Loading States
+
+* Wrap async sections in `<Suspense fallback={<Spinner/>}>`.  
+* Provide **at least** skeleton loaders on cards.  
+* Edge function errors → JSON `{ error: "msg" }` + log to console.error.
+
+---
+
+## 6 · Accessibility (A11y)
+
+1. Semantic HTML first (`<header>`, `<nav>`, `<main>`).  
+2. One `<h1>` per page; nested landmarks for subsections.  
+3. `aria-label` for icon-only buttons & external links.  
+4. Keyboard : all focusable, visible focus ring (`outline-offset-2 outline-coral-500`).
+
+---
+
+## 7 · Performance
+
+* Use `<Image>` with `sizes` attr to serve responsive images.  
+* Split large bundles via dynamic `import()` + `loading="lazy"`.  
+* Avoid `console.*` in production—fail ESLint build.  
+* Lighthouse target ≥ 95 mobile.
+
+---
+
+## 8 · Git & CI
+
+* **Trunk‑based**: PR into `main`, small commits.  
+* Commit prefixes (`feat:`, `fix:`, etc.) – see rules.md.  
+* Run `pnpm format && pnpm test` in pre‑commit hook.  
+* CI: type‑check, lint, unit tests, Lighthouse budget.
+
+---
+
+## 9 · AI Prompt Patterns
+
+| Situation | Prompt template |
+|-----------|-----------------|
+| **New component** | “Create `ProjectCard.tsx` (props: …). Use shadcn Button. Follow design tokens @file .cursor/design-system.mdc. No extra libs.” |
+| **Refactor** | “Refactor `ExperienceTimeline.tsx` to two‑column layout per rules §4. Keep public API unchanged.” |
+| **Bug fix** | “Here’s the stack trace… Suggest patch only for the failing file.” |
+
+---
+
+## 10 · Documentation
+
+* Every public util has JSDoc (`/** */`).  
+* Update README and design-system when tokens or APIs change.  
+* Keep diagrams in `/docs` exported as SVG.
+
+---
+
+*Last updated: 2025‑06‑29*
+
+````

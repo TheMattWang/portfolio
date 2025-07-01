@@ -1,0 +1,90 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+
+title: Common Mistakes & Pitfalls
+kind: reference        # AI can consult but not mandatory rules
+scope: global
+weight: 95             # low priority; load after core rules
+------------------------------------------------------------
+
+> A living checklist of issues that often surface when generating or refactoring code in this repo. Reference when issuing large-scale AI edits.
+
+---
+
+## 1 · Structural / File‑system
+
+| Mistake                                                                | Fix / Rule of thumb                                                  |
+| ---------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| Renaming or duplicating route folders without updating imports & links | Avoid unless explicitly requested; run `pnpm type-check` after moves |
+| Placing reusable components inside route folders                       | Keep reusable UI in `/components`; pages stay minimal                |
+| Adding server code to static GH Pages build                            | Runtime code must live in Render backend                             |
+
+---
+
+## 2 · Tailwind / CSS
+
+| Mistake                      | Fix                                             |
+| ---------------------------- | ----------------------------------------------- |
+| Inline `style={{…}}` props   | Use Tailwind utilities or extend config         |
+| Missing responsive modifiers | Mobile-first default → layer `sm:` `md:` `lg:`  |
+| Forgetting `dark:` variants  | Keep text/icon contrast consistent in dark mode |
+
+---
+
+## 3 · shadcn/ui & Radix
+
+| Mistake                                   | Fix                                               |
+| ----------------------------------------- | ------------------------------------------------- |
+| Re‑implementing shadcn buttons            | Import `Button` from `@/components/ui/button`     |
+| Missing `asChild` on link-wrapped buttons | `<Button asChild><Link/></Button>` preserves a11y |
+| Not forwarding refs in wrappers           | Use `forwardRef` when extending primitives        |
+
+---
+
+## 4 · Next.js App Router
+
+| Mistake                                      | Fix                                    |
+| -------------------------------------------- | -------------------------------------- |
+| Using client hooks in Server Components      | Only call in `"use client"` components |
+| No `<Suspense>` around heavy dynamic imports | Add `<Suspense fallback={…}>`          |
+| Using `<img>` instead of `<Image>`           | Always use `next/image`                |
+
+---
+
+## 5 · Accessibility & SEO
+
+| Mistake                                   | Fix                                                  |
+| ----------------------------------------- | ---------------------------------------------------- |
+| Low-contrast text                         | Ensure ≥ 4.5:1 ratio (stone-600 on stone-100 passes) |
+| Missing `aria-label` on icon-only buttons | Add labels or hidden text                            |
+| Multiple `<h1>` per page                  | One `<h1>`; start subsections at `<h2>`              |
+
+---
+
+## 6 · Performance
+
+| Mistake                           | Fix                       |
+| --------------------------------- | ------------------------- |
+| Loading all blog MDX at build     | Paginate + dynamic import |
+| Ignoring `prefers-reduced-motion` | Gate heavy animations     |
+| Leaving `console.log` in prod     | ESLint rule to fail build |
+
+---
+
+## 7 · Backend / RAG
+
+| Mistake                               | Fix                                          |
+| ------------------------------------- | -------------------------------------------- |
+| Exposing `GEMINI_API_KEY` client‑side | Store on Render; expose only public URL      |
+| Duplicate context chunks → cost ↑     | Hash-deduplicate before LLM call             |
+| No cold‑start handling for Render     | Widget should retry & show "Waking MattBot…" |
+
+---
+
+*Update this file when new recurring issues appear.*
+
+*Last updated: 2025‑06‑29*

@@ -1,0 +1,9 @@
+packages:
+  - frontend
+
+ignoredBuiltDependencies:
+  - esbuild
+  - protobufjs
+
+onlyBuiltDependencies:
+  - contentlayer
