@@ -1,10 +1,11 @@
 import { defineDocumentType, makeSource } from "contentlayer/source-files";
+import { DocumentTypes } from "contentlayer/generated";
 import { calculateReadTime } from "./src/lib/utils";
 
 export const Blog = defineDocumentType(() => ({
   name: "Blog",
-  filePathPattern: `blog/*.md`,
-  contentType: "markdown",
+  filePathPattern: `blog/**/*.{md,mdx}`,
+  contentType: "mdx",
   fields: {
     title: {
       type: "string",
@@ -49,15 +50,15 @@ export const Blog = defineDocumentType(() => ({
   computedFields: {
     slug: {
       type: "string",
-      resolve: (doc) => doc._raw.sourceFileName.replace(/\.md$/, ""),
+      resolve: (doc: DocumentTypes) => doc._raw.sourceFileName.replace(/\.(md|mdx)$/, ""),
     },
     url: {
       type: "string",
-      resolve: (doc) => `/blog/${doc._raw.sourceFileName.replace(/\.md$/, "")}`,
+      resolve: (doc: DocumentTypes) => `/blog/${doc._raw.sourceFileName.replace(/\.(md|mdx)$/, "")}`,
     },
     readingTime: {
       type: "number",
-      resolve: (doc) => calculateReadTime(doc.body.raw),
+      resolve: (doc: DocumentTypes) => calculateReadTime(doc.body.raw),
     },
   },
 }));

@@ -1,6 +1,6 @@
 import { ProjectCard } from "@/components/ProjectCard"
 import { SectionHeading } from "@/components/SectionHeading"
-import { projects } from "@/data/projects"
+import { projectsWithBlogUrls } from "@/data/projects"
 
 export default function ProjectsPage() {
   return (
@@ -10,7 +10,7 @@ export default function ProjectsPage() {
       </SectionHeading>
       
       <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {projects.map((project) => (
+        {projectsWithBlogUrls.map((project) => (
           <ProjectCard key={project.title} {...project} />
         ))}
       </div>
