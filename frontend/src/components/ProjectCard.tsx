@@ -5,16 +5,17 @@ import { Github, Globe, Clock } from "lucide-react"
 import Link from "next/link"
 import { allBlogs } from 'contentlayer/generated'
 
-export function ProjectCard({ title, description, tags, github, demo, blogPost }: Project) {
+type ProjectCardProps = Project & { blogPost?: string }
+
+export function ProjectCard({ title, description, tags, github, demo, blogSlug, blogPost }: ProjectCardProps) {
   const handleExternalLinkClick = (e: React.MouseEvent) => {
     e.stopPropagation()
   }
 
   // Get the timeToComplete from the associated blog post
   const getBlogTimeToComplete = () => {
-    if (!blogPost) return null
-    const slug = blogPost.split('/').pop()
-    const post = allBlogs.find(post => post.slug === slug)
+    if (!blogSlug) return null
+    const post = allBlogs.find(post => post.slug === blogSlug)
     return post?.timeToComplete
   }
 

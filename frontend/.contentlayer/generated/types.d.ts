@@ -22,8 +22,8 @@ export type Blog = {
   canonicalUrl?: string | undefined
   timeToComplete?: string | undefined
   category: string
-  /** Markdown file body */
-  body: Markdown
+  /** MDX file body */
+  body: MDX
   slug: string
   url: string
   readingTime: number

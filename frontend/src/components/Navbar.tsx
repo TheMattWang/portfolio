@@ -31,7 +31,7 @@ export function Navbar() {
     { href: "/experiences", label: "Experiences" },
     { href: "/papers", label: "Papers" },
     { href: "/projects", label: "Projects" },
-    { href: "/blog", label: "Blog" },
+    { href: "/blog", label: "Icha Icha Insights" },
   ]
 
   return (
