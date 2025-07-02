@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
 import rehypeSanitize from 'rehype-sanitize'
+import { Clock } from 'lucide-react'
 
 interface PageProps {
   params: {
@@ -33,13 +34,21 @@ export default async function BlogPost({ params }: PageProps) {
       <div className="max-w-2xl mx-auto">
         <header className="mb-8">
           <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
-          <time className="text-stone-500">
-            {new Date(post.date).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            })}
-          </time>
+          <div className="flex items-center gap-4 text-stone-500 mb-2">
+            <time>
+              {new Date(post.date).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </time>
+            {post.timeToComplete && (
+              <span className="flex items-center gap-1">
+                <Clock className="h-4 w-4" />
+                {post.timeToComplete}
+              </span>
+            )}
+          </div>
         </header>
 
         <div className="prose dark:prose-invert max-w-none">

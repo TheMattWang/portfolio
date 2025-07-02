@@ -36,6 +36,15 @@ export const Blog = defineDocumentType(() => ({
       type: "string",
       required: false,
     },
+    timeToComplete: {
+      type: "string",
+      required: false,
+    },
+    category: {
+      type: "string",
+      required: true,
+      options: ["Project", "Paper", "Life", "Tutorial", "Thoughts"],
+    },
   },
   computedFields: {
     slug: {

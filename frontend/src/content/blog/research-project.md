@@ -4,6 +4,8 @@ date: 2025-08-01
 description: "An in-depth look at my ongoing research in machine learning and artificial intelligence."
 tags: ["Research", "Machine Learning", "AI", "Python", "TensorFlow"]
 published: true
+timeToComplete: "6 months"
+category: "Paper"
 ---
 
 # Machine Learning Research Project

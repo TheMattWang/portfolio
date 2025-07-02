@@ -10,15 +10,15 @@ export function ProjectCard({ title, description, tags, github, demo, blogPost }
     e.stopPropagation()
   }
 
-  // Get the reading time from the associated blog post
-  const getBlogReadingTime = () => {
+  // Get the timeToComplete from the associated blog post
+  const getBlogTimeToComplete = () => {
     if (!blogPost) return null
     const slug = blogPost.split('/').pop()
     const post = allBlogs.find(post => post.slug === slug)
-    return post?.readingTime
+    return post?.timeToComplete
   }
 
-  const readingTime = getBlogReadingTime()
+  const timeToComplete = getBlogTimeToComplete()
 
   return (
     <div className={`rounded-lg border border-stone-200 p-6 ${blogPost ? 'hover:border-primary transition-colors group' : ''}`}>
@@ -27,10 +27,10 @@ export function ProjectCard({ title, description, tags, github, demo, blogPost }
           <div>
             <div className="flex justify-between items-start mb-2">
               <h3 className="text-xl font-medium text-stone-900 group-hover:text-primary transition-colors">{title}</h3>
-              {readingTime && (
+              {timeToComplete && (
                 <span className="flex items-center gap-1 text-sm text-stone-500">
                   <Clock className="h-4 w-4" />
-                  {readingTime} min read
+                  {timeToComplete}
                 </span>
               )}
             </div>
@@ -52,10 +52,10 @@ export function ProjectCard({ title, description, tags, github, demo, blogPost }
         <div>
           <div className="flex justify-between items-start mb-2">
             <h3 className="text-xl font-medium text-stone-900">{title}</h3>
-            {readingTime && (
+            {timeToComplete && (
               <span className="flex items-center gap-1 text-sm text-stone-500">
                 <Clock className="h-4 w-4" />
-                {readingTime} min read
+                {timeToComplete}
               </span>
             )}
           </div>
