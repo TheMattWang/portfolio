@@ -1,4 +1,6 @@
 import { SectionHeading } from "@/components/SectionHeading"
+import { PaperCard } from "@/components/PaperCard"
+import { papers } from "@/data/papers"
 
 export default function PapersPage() {
   return (
@@ -7,12 +9,10 @@ export default function PapersPage() {
         Published and pre-print research papers
       </SectionHeading>
       
-      <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {/* Paper cards will go here */}
-        <div className="rounded-lg border border-stone-200 p-6">
-          <h3 className="text-xl font-medium text-stone-900 mb-2">Coming Soon</h3>
-          <p className="text-stone-600">Research papers will be added here.</p>
-        </div>
+      <div className="mt-12 grid gap-8 md:grid-cols-2">
+        {papers.map((paper, index) => (
+          <PaperCard key={index} {...paper} />
+        ))}
       </div>
     </main>
   )
