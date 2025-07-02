@@ -8,6 +8,7 @@ interface PostCardProps {
     date: string;
     slug: string;
     category: string;
+    readingTime: number;
   };
 }
 
@@ -38,12 +39,13 @@ export function PostCard({ post }: PostCardProps) {
           </span>
         </div>
         <p className="text-muted-foreground line-clamp-3">{post.description}</p>
-        <time
-          dateTime={post.date}
-          className="text-sm text-muted-foreground"
-        >
-          {format(parseISO(post.date), "MMMM d, yyyy")}
-        </time>
+        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+          <time dateTime={post.date}>
+            {format(parseISO(post.date), "MMMM d, yyyy")}
+          </time>
+          <span>•</span>
+          <span>{post.readingTime} min read</span>
+        </div>
       </Link>
     </article>
   );

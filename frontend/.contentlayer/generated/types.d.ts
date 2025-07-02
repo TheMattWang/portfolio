@@ -20,6 +20,8 @@ export type Blog = {
   published: boolean
   image?: string | undefined
   canonicalUrl?: string | undefined
+  timeToComplete?: string | undefined
+  category: string
   /** Markdown file body */
   body: Markdown
   slug: string

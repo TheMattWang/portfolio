@@ -46,6 +46,15 @@ var Blog = defineDocumentType(() => ({
     canonicalUrl: {
       type: "string",
       required: false
+    },
+    timeToComplete: {
+      type: "string",
+      required: false
+    },
+    category: {
+      type: "string",
+      required: true,
+      options: ["Project", "Paper", "Life", "Tutorial", "Thoughts"]
     }
   },
   computedFields: {
@@ -72,4 +81,4 @@ export {
   Blog,
   contentlayer_config_default as default
 };
-//# sourceMappingURL=compiled-contentlayer-config-X3EH4S66.mjs.map
+//# sourceMappingURL=compiled-contentlayer-config-2HRRNRRF.mjs.map

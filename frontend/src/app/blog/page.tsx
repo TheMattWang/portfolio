@@ -13,7 +13,7 @@ export default function BlogPage() {
       date: post.date,
       slug: post.slug,
       category: post.category || 'writing',
-      timeToComplete: post.timeToComplete
+      readingTime: post.readingTime
     }))
 
   return (
