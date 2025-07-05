@@ -46,6 +46,10 @@ export const Blog = defineDocumentType(() => ({
       required: true,
       options: ["Project", "Paper", "Life", "Tutorial", "Thoughts"],
     },
+    isComplete: {
+      type: "boolean",
+      default: false,
+    },
   },
   computedFields: {
     slug: {
