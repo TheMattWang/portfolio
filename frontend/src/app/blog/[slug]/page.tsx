@@ -5,6 +5,7 @@ import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
 import rehypeSanitize from 'rehype-sanitize'
 import { Clock } from 'lucide-react'
+import { BlogStatusBadge } from '@/components/BlogStatusBadge'
 
 interface PageProps {
   params: {
@@ -49,6 +50,7 @@ export default async function BlogPost({ params }: PageProps) {
               </span>
             )}
           </div>
+          <BlogStatusBadge isComplete={post.isComplete} className="mt-4" />
         </header>
 
         <div className="prose dark:prose-invert max-w-none">
