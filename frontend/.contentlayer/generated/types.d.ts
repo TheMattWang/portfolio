@@ -22,6 +22,7 @@ export type Blog = {
   canonicalUrl?: string | undefined
   timeToComplete?: string | undefined
   category: string
+  isComplete: boolean
   /** MDX file body */
   body: MDX
   slug: string
