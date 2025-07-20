@@ -112,4 +112,6 @@ font-family: 'Inter', system-ui, sans-serif;
 3. Replace hard‑coded hexes.
 4. `pnpm format && pnpm test`.
 
+
+
 *Last updated: 2025‑06‑29*
