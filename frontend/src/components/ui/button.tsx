@@ -43,14 +43,12 @@ export interface ButtonProps
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button"
-
     if (asChild) {
       return (
         <Slot
           data-slot="button"
           className={cn(buttonVariants({ variant, size, className }))}
-          {...props}
+          {...(props as any)}
         />
       )
     }
@@ -60,7 +58,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         data-slot="button"
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
-        {...props}
+        {...(props as any)}
       />
     )
   }
