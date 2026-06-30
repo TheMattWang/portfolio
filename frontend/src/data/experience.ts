@@ -9,7 +9,13 @@ export interface Experience {
 }
 
 export const experiences: Experience[] = [
-  
+  {
+    type: 'work',
+    organization: 'Amazon Web Services',
+    title: 'Associate Solutions Architect',
+    date: 'January 2026 - Present',
+    details: ['AWSI, Strategic Accounts'],
+  },
   {
     type: 'work',
     organization: 'Equilibrium Energy',
