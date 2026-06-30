@@ -16,6 +16,12 @@
 # next.js
 /.next/
 /out/
+**/.next/
+
+# generated content / package store (never commit build artifacts)
+**/.contentlayer/
+.pnpm-store/
+**/node_modules/
 
 # production
 /build
